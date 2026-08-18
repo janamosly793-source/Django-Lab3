@@ -1,0 +1,21 @@
+Watching for file changes with StatReloader
+[18/Aug/2026 22:38:17] "GET / HTTP/1.1" 200 15149
+[18/Aug/2026 22:38:17,722] - Broken pipe from ('127.0.0.1', 63717)
+[18/Aug/2026 22:38:58] "GET / HTTP/1.1" 200 15149
+[18/Aug/2026 22:39:02,592] - Broken pipe from ('127.0.0.1', 63775)
+[18/Aug/2026 22:39:03] "GET / HTTP/1.1" 200 15149
+[18/Aug/2026 22:39:04] "GET /static/menu/css/style.css HTTP/1.1" 200 3916
+[18/Aug/2026 22:39:12] "GET / HTTP/1.1" 200 15149
+[18/Aug/2026 22:39:13,198] - Broken pipe from ('127.0.0.1', 63797)
+[18/Aug/2026 22:40:00] "GET / HTTP/1.1" 200 15149
+[18/Aug/2026 22:40:01] "GET /static/menu/css/style.css HTTP/1.1" 304 0
+[18/Aug/2026 22:40:08] "POST /cart/ HTTP/1.1" 302 0
+[18/Aug/2026 22:40:08] "GET / HTTP/1.1" 200 15177
+[18/Aug/2026 22:40:12] "POST /cart/ HTTP/1.1" 302 0
+[18/Aug/2026 22:40:12] "GET / HTTP/1.1" 200 15177
+[18/Aug/2026 22:40:13] "GET /cart/ HTTP/1.1" 200 4429
+[18/Aug/2026 22:40:17] "POST /cart/ HTTP/1.1" 302 0
+[18/Aug/2026 22:40:17] "GET /cart/ HTTP/1.1" 200 4430
+[18/Aug/2026 22:40:18] "POST /cart/ HTTP/1.1" 302 0
+[18/Aug/2026 22:40:18] "GET /cart/ HTTP/1.1" 200 4431
+[18/Aug/2026 22:40:19] "GET /checkout/ HTTP/1.1" 200 1164

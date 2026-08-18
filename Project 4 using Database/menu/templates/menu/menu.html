@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Menu - The Rusty Fork{% endblock %}
+
+{% block content %}
+<h1>Our Menu</h1>
+
+<div class="filters">
+    <a href="{% url 'menu' %}" class="{% if not selected %}active{% endif %}">All</a>
+    {% for category in categories %}
+        <a href="{% url 'menu' %}?cat={{ category.id }}" class="{% if selected == category.id|stringformat:'s' %}active{% endif %}">
+            {{ category.emoji }} {{ category.name }}
+        </a>
+    {% endfor %}
+</div>
+
+{% for category, items in items_by_category.items %}
+    <section class="category">
+        <h2>{{ category.emoji }} {{ category.name }}</h2>
+        <div class="items">
+            {% for item in items %}
+                <div class="item">
+                    <span class="emoji">{{ item.emoji }}</span>
+                    <div class="info">
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.description }}</p>
+                    </div>
+                    <div class="price">${{ item.price }}</div>
+                    <form method="post" action="{% url 'cart' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add">
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <input type="hidden" name="next" value="menu">
+                        <button type="submit">Add</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% empty %}
+    <p class="empty">No items here yet. Check the admin to add some.</p>
+{% endfor %}
+{% endblock %}

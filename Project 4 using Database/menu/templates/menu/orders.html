@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Orders - The Rusty Fork{% endblock %}
+
+{% block content %}
+<h1>Orders</h1>
+
+<div class="filters">
+    <a href="{% url 'orders' %}" class="{% if not status %}active{% endif %}">All</a>
+    {% for value, label in statuses %}
+        <a href="{% url 'orders' %}?status={{ value }}" class="{% if status == value %}active{% endif %}">{{ label }}</a>
+    {% endfor %}
+</div>
+
+{% if orders %}
+    <table class="orders">
+        <tr><th>#</th><th>Customer</th><th>Status</th><th>Items</th><th>Total</th></tr>
+        {% for order in orders %}
+            <tr>
+                <td><a href="{% url 'order_detail' order.id %}">#{{ order.id }}</a></td>
+                <td>{{ order.customer }}</td>
+                <td><span class="status {{ order.status }}">{{ order.get_status_display }}</span></td>
+                <td>{{ order.items.all|length }} item(s)</td>
+                <td>${{ order.total }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p class="empty">No orders yet. Go order something tasty!</p>
+{% endif %}
+{% endblock %}

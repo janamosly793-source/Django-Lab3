@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Cart - The Rusty Fork{% endblock %}
+
+{% block content %}
+<h1>Your Cart</h1>
+
+{% if quantities %}
+    <table class="cart">
+        <tr><th>Item</th><th>Price</th><th>Qty</th><th>Line total</th><th></th></tr>
+        {% for item, qty, line_total in quantities %}
+            <tr>
+                <td>{{ item.emoji }} {{ item.name }}</td>
+                <td>${{ item.price }}</td>
+                <td>
+                    <form method="post" class="inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add">
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <button type="submit">+</button>
+                    </form>
+                    {{ qty }}
+                    <form method="post" class="inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="remove">
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <button type="submit">−</button>
+                    </form>
+                </td>
+                <td>${{ line_total }}</td>
+                <td>
+                    <form method="post" class="inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="remove">
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p class="total">Total: ${{ total }}</p>
+    <div class="actions">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="clear">
+            <button type="submit" class="secondary">Clear cart</button>
+        </form>
+        <a class="button" href="{% url 'checkout' %}">Checkout</a>
+    </div>
+{% else %}
+    <p class="empty">Your cart is empty. <a href="{% url 'menu' %}">Browse the menu</a>.</p>
+{% endif %}
+{% endblock %}

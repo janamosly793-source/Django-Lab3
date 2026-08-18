@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Stats - The Rusty Fork{% endblock %}
+
+{% block content %}
+<h1>Restaurant Stats</h1>
+
+<div class="cards">
+    <div class="card"><span class="big">${{ revenue|floatformat:2 }}</span><span>Total revenue</span></div>
+    <div class="card"><span class="big">{{ order_count }}</span><span>Orders placed</span></div>
+</div>
+
+<h2>Most ordered items</h2>
+{% if popular %}
+    <table class="orders">
+        <tr><th>#</th><th>Item</th><th>Units ordered</th></tr>
+        {% for row in popular %}
+            <tr><td>{{ forloop.counter }}</td><td>{{ row.item__name }}</td><td>{{ row.ordered }}</td></tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p class="empty">No orders yet, so no data to show.</p>
+{% endif %}
+
+<h2>Orders per category</h2>
+{% if by_category %}
+    <table class="orders">
+        <tr><th>Category</th><th>Units ordered</th></tr>
+        {% for row in by_category %}
+            <tr><td>{{ row.item__category__name }}</td><td>{{ row.ordered }}</td></tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p class="empty">No data yet.</p>
+{% endif %}
+{% endblock %}

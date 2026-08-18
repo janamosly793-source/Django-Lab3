@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - The Rusty Fork{% endblock %}
+
+{% block content %}
+<h1>Checkout</h1>
+
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+<form method="post" class="form">
+    {% csrf_token %}
+    <label for="customer">Your name</label>
+    <input type="text" id="customer" name="customer" maxlength="50" required placeholder="e.g. Ada Lovelace">
+    <button type="submit" class="button">Place order</button>
+</form>
+<p><a href="{% url 'cart' %}">← Back to cart</a></p>
+{% endblock %}

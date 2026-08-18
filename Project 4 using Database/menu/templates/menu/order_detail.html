@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Order #{{ order.id }} - The Rusty Fork{% endblock %}
+
+{% block content %}
+<h1>Order #{{ order.id }}</h1>
+<p class="meta">Customer: <strong>{{ order.customer }}</strong> · Status: <span class="status {{ order.status }}">{{ order.get_status_display }}</span> · Placed: {{ order.created_at }}</p>
+
+<table class="orders">
+    <tr><th>Item</th><th>Unit price</th><th>Qty</th><th>Line total</th></tr>
+    {% for line in order.items.all %}
+        <tr>
+            <td>{{ line.item.emoji }} {{ line.item.name }}</td>
+            <td>${{ line.unit_price }}</td>
+            <td>{{ line.quantity }}</td>
+            <td>${{ line.line_total }}</td>
+        </tr>
+    {% endfor %}
+    <tr class="grand"><td colspan="3">Total</td><td>${{ order.total }}</td></tr>
+</table>
+<p><a href="{% url 'orders' %}">← All orders</a></p>
+{% endblock %}
